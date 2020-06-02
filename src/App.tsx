@@ -1,32 +1,28 @@
 import React from "react";
 import "./App.css";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 import PPAppBar from "./components/PpAppBar";
-import PerformanceCard from "./components/PerformanceCard";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import PerformancePage from "./pages/PerformancePage";
+import UserPage from "./pages/UsersPage/UsersPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <PPAppBar />
-      <Container maxWidth="sm">
-        <Typography color="textPrimary" variant={"h3"} gutterBottom>
-          Performance
-        </Typography>
-        <Grid container direction={"column"} spacing={2}>
-          <Grid item>
-            <PerformanceCard />
-          </Grid>
-          <Grid item>
-            <PerformanceCard />
-          </Grid>
-          <Grid item>
-            <PerformanceCard />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+    <Router>
+      <Box className={classes.root}>
+        <PPAppBar />
+        <Container maxWidth="sm">
+          <Switch>
+            <Route exact path={"/"} component={PerformancePage} />
+            <Route path={"/users"} component={UserPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Container>
+      </Box>
+    </Router>
   );
 }
 

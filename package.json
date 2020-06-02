@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "typescript": "^3.7.5"
   },
@@ -43,8 +44,8 @@
   },
   "devDependencies": {
     "@types/jest": "^24.9.1",
-    "babel-jest": "^26.0.1",
-    "jest": "^26.0.1",
+    "@types/react-router-dom": "^5.1.5",
+    "jest": "24.9.0",
     "ts-jest": "^26.1.0"
   }
 }
