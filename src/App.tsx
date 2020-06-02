@@ -1,26 +1,34 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Container, Grid } from "@material-ui/core";
+import PPAppBar from "./components/PpAppBar";
+import PerformanceCard from "./components/PerformanceCard";
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box className={classes.root}>
+      <PPAppBar />
+      <Container maxWidth="sm">
+        <Grid container direction={"column"} spacing={2}>
+          <Grid item>
+            <PerformanceCard />
+          </Grid>
+          <Grid item>
+            <PerformanceCard />
+          </Grid>
+          <Grid item>
+            <PerformanceCard />
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }
+
+const useStyles = makeStyles(() => ({
+  root: {},
+}));
 
 export default App;
