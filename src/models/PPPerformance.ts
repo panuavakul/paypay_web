@@ -15,8 +15,8 @@ class PPPerformance {
     employeeId: string;
     feedbackIds: string[];
     description: string;
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt?: Date;
+    createdAt?: Date;
   }) {
     this.id = id;
     this.date = date;
