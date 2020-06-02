@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Rating from "@material-ui/lab/Rating";
 
 interface PerformanceCard {}
 
@@ -33,9 +32,6 @@ const PerformanceCard: React.SFC<PerformanceCard> = () => {
                   </Typography>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Rating readOnly value={3} />
             </Grid>
             <Grid item>
               <Typography
