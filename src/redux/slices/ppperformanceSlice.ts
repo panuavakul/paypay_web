@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import PPPerformance from "../../models/PPPerformance";
 import PPPerformanceService from "../../services/PPPerformanceService";
-import { mergeAllAction } from "./userSlice";
+import { mergeOneAction, mergeAllAction } from "./userSlice";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(
@@ -14,6 +14,18 @@ export const getPerformancesAction = createAsyncThunk(
     }
 
     return result.performances;
+  }
+);
+
+export const getPerformanceAction = createAsyncThunk<PPPerformance, string>(
+  "performance_get_performance",
+  async (id, thunkApi) => {
+    const result = await PPPerformanceService.getWithId(id);
+
+    const user = result.user;
+    thunkApi.dispatch(mergeOneAction(user));
+
+    return result.performance;
   }
 );
 
@@ -46,6 +58,22 @@ const ppperformanceSlice = createSlice({
         byId[id] = item;
         allIds.push(id);
       }
+
+      allIds = Array.from(new Set([...allIds]));
+
+      return { byId: byId, allIds: allIds };
+    });
+
+    builder.addCase(getPerformanceAction.fulfilled, (state, action) => {
+      const newItem = action.payload;
+      const id = newItem.id;
+
+      const byId = { ...state.byId };
+      let allIds = [...state.allIds];
+
+      byId[id] = newItem;
+
+      allIds.push(id);
 
       allIds = Array.from(new Set([...allIds]));
 

@@ -3,7 +3,7 @@ import PPPerformance, { PPPerformanceHelper } from "../models/PPPerformance";
 import User, { UserHelper } from "../models/User";
 
 class PPPerformanceService {
-  static path = "performances/";
+  static path = "performances";
 
   static async get(): Promise<PPPerformanceGetResult> {
     const data: any[] = await HttpService.get(this.path);
