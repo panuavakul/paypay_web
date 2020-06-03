@@ -7,6 +7,7 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import PerformancePage from "./pages/PerformancePage";
 import UserPage from "./pages/UsersPage/UsersPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import PerformanceDetailPage from "./pages/PerformanceDetailPage";
 
 function App() {
   const classes = useStyles();
@@ -17,7 +18,13 @@ function App() {
         <Container maxWidth="sm">
           <Switch>
             <Route exact path={"/performances"} component={PerformancePage} />
+            <Route
+              exact
+              path={"/performances/:id"}
+              component={PerformanceDetailPage}
+            />
             <Route exact path={"/users"} component={UserPage} />
+
             <Route component={NotFoundPage} />
           </Switch>
         </Container>
