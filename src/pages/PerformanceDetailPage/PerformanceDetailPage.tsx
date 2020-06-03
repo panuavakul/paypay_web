@@ -22,6 +22,9 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
 
   return (
     <React.Fragment>
+      <Typography color="textPrimary" variant={"h4"} gutterBottom>
+        Performance
+      </Typography>
       <Grid container>
         <PerformanceCard performanceId={params.id} />
       </Grid>

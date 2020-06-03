@@ -20,7 +20,7 @@ const UserPage: React.SFC<ComponentProps> = props => {
 
   return (
     <React.Fragment>
-      <Typography color="textPrimary" variant={"h3"} gutterBottom>
+      <Typography color="textPrimary" variant={"h4"} gutterBottom>
         Users
       </Typography>
       <Grid container direction={"column"} spacing={2}>
