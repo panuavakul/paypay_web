@@ -1,6 +1,6 @@
 import HttpService from "./HttpService";
 import User, { UserHelper } from "../models/User";
-import PPPerformance from "../models/PPPerformance";
+import PPPerformance, { PPPerformanceHelper } from "../models/PPPerformance";
 
 class UserService {
   static path = "users/";
@@ -19,7 +19,7 @@ class UserService {
     const data = await HttpService.get(this.path, id);
     const result = UserHelper.fromJson(data);
 
-    const performances: PPPerformance[] = PPPerformance.fromJsonArray(
+    const performances: PPPerformance[] = PPPerformanceHelper.fromJsonArray(
       data.performances
     );
 

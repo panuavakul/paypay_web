@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, CardContent, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppState } from "../../redux/store";
 import { connect } from "react-redux";
-import User from "../../models/User";
-import { ArrowForwardIos } from "@material-ui/icons";
 
 interface OwnProps {
   userId: string;

@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import { Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HttpService from "../../services/HttpService";
+import PPPerformanceService from "../../services/PPPerformanceService";
 
 interface PPAppBar {}
 
@@ -20,7 +21,8 @@ const PPAppBar: React.SFC<PPAppBar> = props => {
           color="inherit"
           onClick={async () => {
             // Debug Remove this
-            await HttpService.get("/users");
+            const temp = await PPPerformanceService.get();
+            console.log(temp);
           }}
         >
           Sign In

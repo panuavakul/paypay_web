@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Typography } from "@material-ui/core";
 import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserCard from "../../components/UserCard";
 
-interface UserPage {
-  userIds: string[];
-  getUsers: () => void;
-}
+interface ComponentProps {}
 
-const UserPage: React.SFC<UserPage> = props => {
+const idsSelector = (state: AppState) => state.user.allIds;
+
+const UserPage: React.SFC<ComponentProps> = props => {
+  const userIds = useSelector(idsSelector);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    // Update the document title using the browser API
-    props.getUsers();
+    dispatch(getUsersAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -22,28 +24,14 @@ const UserPage: React.SFC<UserPage> = props => {
         Users
       </Typography>
       <Grid container direction={"column"} spacing={2}>
-        {props.userIds.map((id, index) => (
+        {userIds.map((id, index) => (
           <Grid item key={index}>
             <UserCard userId={id} />
           </Grid>
         ))}
-        <Grid item></Grid>
-        <Grid item></Grid>
-        <Grid item></Grid>
       </Grid>
     </React.Fragment>
   );
 };
 
-const mapStateToProps = (state: AppState) => {
-  const userIds = state.user.allIds;
-  return { userIds: userIds };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    getUsers: () => dispatch(getUsersAction()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+export default UserPage;

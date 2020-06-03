@@ -1,16 +1,23 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import PPPerformance from "../../models/PPPerformance";
+import PPPerformanceService from "../../services/PPPerformanceService";
+import { mergeAllAction } from "./userSlice";
 
 // Actions
-export const mergeOneAction = createAction<PPPerformance>(
-  "data_ppperformance_merge_one"
-);
-export const mergeAllAction = createAction<PPPerformance[]>(
-  "data_ppperformance_merge_all"
+export const getPerformancesAction = createAsyncThunk(
+  "performance_get_performances",
+  async (_, thunkApi) => {
+    const result = await PPPerformanceService.get();
+    const users = result.users;
+    if (users.length > 0) {
+      thunkApi.dispatch(mergeAllAction(users));
+    }
+
+    return result.performances;
+  }
 );
 
 // State
-
 export interface PPPerformanceState {
   byId: { [key: string]: PPPerformance };
   allIds: string[];
@@ -27,18 +34,7 @@ const ppperformanceSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(mergeOneAction, (state, action) => {
-      const id = action.payload.id;
-      const value = action.payload;
-
-      const byId = { ...state.byId };
-      byId[id] = value;
-
-      const allIds = Array.from(new Set([...state.allIds, id]));
-
-      return { byId: byId, allIds: allIds };
-    });
-    builder.addCase(mergeAllAction, (state, action) => {
+    builder.addCase(getPerformancesAction.fulfilled, (state, action) => {
       const newItems = action.payload;
 
       const byId = { ...state.byId };

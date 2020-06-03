@@ -16,7 +16,7 @@ function App() {
         <PPAppBar />
         <Container maxWidth="sm">
           <Switch>
-            <Route exact path={"/performance"} component={PerformancePage} />
+            <Route exact path={"/performances"} component={PerformancePage} />
             <Route exact path={"/users"} component={UserPage} />
             <Route component={NotFoundPage} />
           </Switch>

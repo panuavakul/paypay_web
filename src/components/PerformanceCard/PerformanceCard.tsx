@@ -1,11 +1,36 @@
 import React from "react";
 import { Card, CardContent, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { AppState, store } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
-interface PerformanceCard {}
+interface ComponentProps {
+  performanceId: string;
+}
 
-const PerformanceCard: React.SFC<PerformanceCard> = () => {
+interface State {
+  name: string;
+  achievement: string;
+  date: string;
+}
+
+const selector = (performanceId: string) => (state: AppState): State => {
+  const performance = state.ppperformance.byId[performanceId];
+  const userId = performance.userId;
+  const user = state.user.byId[userId];
+
+  const date = new Date(performance.date);
+
+  return {
+    name: `${user.firstName} ${user.lastName}`,
+    achievement: performance.achievement,
+    date: `${date.getFullYear()}/${date.getMonth()}`,
+  };
+};
+
+const PerformanceCard = (props: ComponentProps) => {
   const classes = useStyles();
+  const state = useSelector(selector(props.performanceId));
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -19,7 +44,7 @@ const PerformanceCard: React.SFC<PerformanceCard> = () => {
                     color="textPrimary"
                     gutterBottom
                   >
-                    Panu Avakul
+                    {state.name}
                   </Typography>
                 </Grid>
                 <Grid item xs>
@@ -28,7 +53,7 @@ const PerformanceCard: React.SFC<PerformanceCard> = () => {
                     color="textSecondary"
                     gutterBottom
                   >
-                    2020/1
+                    {state.date}
                   </Typography>
                 </Grid>
               </Grid>
@@ -39,9 +64,7 @@ const PerformanceCard: React.SFC<PerformanceCard> = () => {
                 color="textPrimary"
                 variant={"body1"}
               >
-                Finished project in a really fast time preriod Finished project
-                in a really fast time preriodFinished project in a really fast
-                time preriodFinished project in a really fast time preriod
+                {state.achievement}
               </Typography>
             </Grid>
           </Grid>
