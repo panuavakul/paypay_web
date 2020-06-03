@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Grid, Typography } from "@material-ui/core";
 import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
+import UserCard from "../../components/UserCard";
 
 interface UserPage {
   userIds: string[];
@@ -21,6 +22,11 @@ const UserPage: React.SFC<UserPage> = props => {
         Users
       </Typography>
       <Grid container direction={"column"} spacing={2}>
+        {props.userIds.map((id, index) => (
+          <Grid item key={index}>
+            <UserCard userId={id} />
+          </Grid>
+        ))}
         <Grid item></Grid>
         <Grid item></Grid>
         <Grid item></Grid>
