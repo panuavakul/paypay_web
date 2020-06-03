@@ -11,7 +11,7 @@ export const mergeAllAction = createAction<PPPerformance[]>(
 
 // State
 
-interface PPPerformanceState {
+export interface PPPerformanceState {
   byId: { [key: string]: PPPerformance };
   allIds: string[];
 }
