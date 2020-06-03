@@ -19,7 +19,7 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
   return (
     <React.Fragment>
       <Typography color="textPrimary" variant={"h3"} gutterBottom>
-        Performance
+        Performances
       </Typography>
       <Grid container direction={"column"} spacing={2}>
         {performanceIds.map((id, index) => (
