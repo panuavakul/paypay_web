@@ -1,39 +1,63 @@
 // This is the model for the performance
+
+import DataModelBase from "./DataModelBase";
+
 // PP is just project unique labelled (PayPay)
-class PPPerformance {
+class PPPerformance extends DataModelBase {
   constructor({
     id,
     date,
-    employeeId,
+    userId,
     feedbackIds,
-    description,
+    achievement,
     updatedAt,
     createdAt,
   }: {
     id: string;
     date: Date;
-    employeeId: string;
+    userId: string;
     feedbackIds: string[];
-    description: string;
+    achievement: string;
     updatedAt?: Date;
     createdAt?: Date;
   }) {
-    this.id = id;
+    super({ id: id, updatedAt: updatedAt, createdAt: createdAt });
     this.date = date;
-    this.employeeId = employeeId;
+    this.userId = userId;
     this.feedbackIds = feedbackIds;
-    this.description = description;
-    this.updatedAt = updatedAt;
-    this.createdAt = createdAt;
+    this.achievement = achievement;
   }
 
-  id: string;
   date: Date;
-  employeeId: string;
+  userId: string;
   feedbackIds: string[];
-  description: string;
-  updatedAt?: Date;
-  createdAt?: Date;
+  achievement: string;
+
+  static fromJson(data: any): PPPerformance {
+    const createdAt = new Date(data.createdAt);
+    const updatedAt = new Date(data.updatedAt);
+    return new PPPerformance({
+      id: data.id,
+      date: data.date,
+      userId: data.userId,
+      feedbackIds: data.feedbackIds,
+      achievement: data.achievement,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    });
+  }
+
+  static fromJsonArray(data: any): PPPerformance[] {
+    if (data?.length ?? 0 < 1) {
+      return [];
+    }
+    const result: PPPerformance[] = [];
+    for (let index in data) {
+      const performance = this.fromJson(data[index]);
+      result.push(performance);
+    }
+    return result;
+  }
 }
 
 export default PPPerformance;

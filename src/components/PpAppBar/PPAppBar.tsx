@@ -2,6 +2,7 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import HttpService from "../../services/HttpService";
 
 interface PPAppBar {}
 
@@ -14,7 +15,14 @@ const PPAppBar: React.SFC<PPAppBar> = props => {
           PayPay Challenge
         </Typography>
         <div className={classes.body} />
-        <Button className={classes.signinButton} color="inherit">
+        <Button
+          className={classes.signinButton}
+          color="inherit"
+          onClick={async () => {
+            // Debug Remove this
+            await HttpService.get("/users");
+          }}
+        >
           Sign In
         </Button>
       </Toolbar>
