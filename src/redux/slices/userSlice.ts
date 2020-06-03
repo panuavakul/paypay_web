@@ -1,7 +1,6 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import UserService from "../../services/UserService";
 import User from "../../models/User";
-import PPPerformance from "../../models/PPPerformance";
 
 // Actions
 export const getUsersAction = createAsyncThunk("users_get_users", async () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, CardContent, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppState, store } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 interface ComponentProps {
   performanceId: string;
@@ -28,7 +28,7 @@ const selector = (performanceId: string) => (state: AppState): State => {
   };
 };
 
-const PerformanceCard = (props: ComponentProps) => {
+const PerformanceCard: React.SFC<ComponentProps> = props => {
   const classes = useStyles();
   const state = useSelector(selector(props.performanceId));
   return (
