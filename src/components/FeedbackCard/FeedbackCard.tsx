@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardContent, Typography, Grid, Box } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppState } from "../../redux/store";
 import { useSelector } from "react-redux";
