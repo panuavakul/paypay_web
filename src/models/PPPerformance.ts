@@ -1,7 +1,5 @@
 // This is the model for the performance
 
-import DataModelBase from "./DataModelBase";
-
 // PP is just project unique labelled (PayPay)
 interface PPPerformance {
   id: string;
@@ -13,7 +11,7 @@ interface PPPerformance {
   createdAt?: string;
 }
 
-export class PPPerformanceHelper extends DataModelBase {
+export class PPPerformanceHelper {
   static fromJson(data: any): PPPerformance {
     const ppperformance: PPPerformance = {
       id: data.id,

@@ -1,5 +1,3 @@
-import DataModelBase from "./DataModelBase";
-
 interface User {
   id: string;
   firstName: string;
@@ -11,7 +9,7 @@ interface User {
 }
 
 // This is the model for the User
-export class UserHelper extends DataModelBase {
+export class UserHelper {
   static fromJson(data: any): User {
     const user: User = {
       id: data.id,
