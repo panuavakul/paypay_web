@@ -7,11 +7,7 @@ class UserService {
 
   static async get(): Promise<User[]> {
     const data: any[] = await HttpService.get(this.path);
-    const result: User[] = [];
-    for (let index in data) {
-      const value = data[index];
-      result.push(UserHelper.fromJson(value));
-    }
+    const result = UserHelper.fromJsonArray(data);
     return result;
   }
 

@@ -1,11 +1,11 @@
-interface User {
-  id: string;
+import BaseData from "./BaseData";
+import { fromJsonArray } from "../helpers/fromJsonArray";
+
+interface User extends BaseData {
   firstName: string;
   lastName: string;
   performanceIds: string[];
   feedbackIds: string[];
-  updatedAt?: String;
-  createdAt?: String;
 }
 
 // This is the model for the User
@@ -21,6 +21,10 @@ export class UserHelper {
       updatedAt: data.updatedAt,
     };
     return user;
+  }
+
+  static fromJsonArray(data: any): User[] {
+    return fromJsonArray<User>(data, this.fromJson);
   }
 }
 

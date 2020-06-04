@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import PPPerformance from "../../models/PPPerformance";
 import PPPerformanceService from "../../services/PPPerformanceService";
 import { mergeOneAction, mergeAllAction } from "./userSlice";
+import { FeedbackHelper } from "../../models/Feedback";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(
@@ -23,6 +24,8 @@ export const getPerformanceAction = createAsyncThunk<PPPerformance, string>(
     const result = await PPPerformanceService.getWithId(id);
 
     const user = result.user;
+    const feedbacks = result.feedbacks;
+
     thunkApi.dispatch(mergeOneAction(user));
 
     return result.performance;

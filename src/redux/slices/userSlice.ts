@@ -1,6 +1,8 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import UserService from "../../services/UserService";
 import User from "../../models/User";
+import { mergeOne } from "../reducer_helpers/mergeOne";
+import { mergeAll } from "../reducer_helpers/mergeAll";
 
 // Actions
 export const getUsersAction = createAsyncThunk("users_get_users", async () => {
@@ -31,51 +33,15 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getUsersAction.fulfilled, (state, action) => {
-      const newItems = action.payload;
-
-      const byId = { ...state.byId };
-      let allIds = [...state.allIds];
-
-      for (var index in newItems) {
-        const item = newItems[index];
-        const id = item.id;
-        byId[id] = item;
-        allIds.push(id);
-      }
-
-      allIds = Array.from(new Set([...allIds]));
-
-      return { byId: byId, allIds: allIds };
+      return mergeAll<User>(state, action.payload);
     });
 
     builder.addCase(mergeOneAction, (state, action) => {
-      const id = action.payload.id;
-      const value = action.payload;
-
-      const byId = { ...state.byId };
-      byId[id] = value;
-
-      const allIds = Array.from(new Set([...state.allIds, id]));
-
-      return { byId: byId, allIds: allIds };
+      return mergeOne<User>(state, action.payload);
     });
 
     builder.addCase(mergeAllAction, (state, action) => {
-      const newItems = action.payload;
-
-      const byId = { ...state.byId };
-      let allIds = [...state.allIds];
-
-      for (var index in newItems) {
-        const item = newItems[index];
-        const id = item.id;
-        byId[id] = item;
-        allIds.push(id);
-      }
-
-      allIds = Array.from(new Set([...allIds]));
-
-      return { byId: byId, allIds: allIds };
+      return mergeAll<User>(state, action.payload);
     });
   },
 });

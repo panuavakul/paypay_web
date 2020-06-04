@@ -1,6 +1,7 @@
 import HttpService from "./HttpService";
 import PPPerformance, { PPPerformanceHelper } from "../models/PPPerformance";
 import User, { UserHelper } from "../models/User";
+import Feedback, { FeedbackHelper } from "../models/Feedback";
 
 class PPPerformanceService {
   static path = "performances";
@@ -27,11 +28,12 @@ class PPPerformanceService {
 
     const user: User = UserHelper.fromJson(data.user);
 
+    const feedbacks: Feedback[] = FeedbackHelper.fromJsonArray(data.feedbacks);
+
     return {
       performance: result,
       user: user,
-      // TODO
-      feedback: [],
+      feedbacks: feedbacks,
     };
   }
 }
@@ -44,8 +46,7 @@ export interface PPPerformanceGetResult {
 export interface PPPerformanceGetWithIdResult {
   performance: PPPerformance;
   user: User;
-  // TODO
-  feedback: any[];
+  feedbacks: Feedback[];
 }
 
 export default PPPerformanceService;

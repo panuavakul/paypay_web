@@ -1,14 +1,12 @@
-// This is the model for the performance
+import BaseData from "./BaseData";
+import { fromJsonArray } from "../helpers/fromJsonArray";
 
 // PP is just project unique labelled (PayPay)
-interface PPPerformance {
-  id: string;
+interface PPPerformance extends BaseData {
   date: string;
   userId: string;
   feedbackIds: string[];
   achievement: string;
-  updatedAt?: string;
-  createdAt?: string;
 }
 
 export class PPPerformanceHelper {
@@ -26,15 +24,7 @@ export class PPPerformanceHelper {
   }
 
   static fromJsonArray(data: any): PPPerformance[] {
-    if (data?.length ?? 0 < 1) {
-      return [];
-    }
-    const result: PPPerformance[] = [];
-    for (let index in data) {
-      const performance = this.fromJson(data[index]);
-      result.push(performance);
-    }
-    return result;
+    return fromJsonArray<PPPerformance>(data, this.fromJson);
   }
 }
 
