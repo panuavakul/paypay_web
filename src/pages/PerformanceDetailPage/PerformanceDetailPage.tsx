@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Box } from "@material-ui/core";
 import PerformanceCard from "../../components/PerformanceCard";
 import { getPerformanceAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,16 +46,25 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
         Performance
       </Typography>
       <PerformanceCard performanceId={params.id} />
-
-      <Typography color="textPrimary" variant={"h4"} gutterBottom>
-        Feedbacks
-      </Typography>
+      <Box paddingTop={2}>
+        <Typography color="textPrimary" variant={"h4"} gutterBottom>
+          Feedbacks
+        </Typography>
+      </Box>
       <Grid container direction={"column"} spacing={2}>
-        {state.feedbackIds.map((id, index) => (
-          <Grid item key={index}>
-            <FeedbackCard feedbackId={id} />
-          </Grid>
-        ))}
+        {state.feedbackIds.length > 0 ? (
+          state.feedbackIds.map((id, index) => (
+            <Grid item key={index}>
+              <FeedbackCard feedbackId={id} />
+            </Grid>
+          ))
+        ) : (
+          <Box width={1} textAlign={"center"}>
+            <Typography color="textPrimary" variant={"body1"}>
+              No feedback yet...
+            </Typography>
+          </Box>
+        )}
       </Grid>
     </React.Fragment>
   );
