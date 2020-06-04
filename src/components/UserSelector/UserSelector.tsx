@@ -2,29 +2,49 @@ import React, { forwardRef } from "react";
 import {
   Grid,
   Box,
-  makeStyles,
   InputLabel,
   Select,
   MenuItem,
   Chip,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 import { AppState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { UserState } from "../../redux/slices/userSlice";
+import User from "../../models/User";
 
 interface ComponentProps {
   id: string;
   label: string;
   values: string[] | string;
   multiple?: boolean;
-  onChange?: (id: string) => void;
+  reviewers?: boolean;
+  onChange?: (event: React.ChangeEvent<{ value: unknown }>) => void;
 }
 
-const usersSelector = (state: AppState) => state.user.allIds;
+interface State {
+  userIds: string[];
+  byId: {
+    [key: string]: User;
+  };
+}
+
+const usersSelector = (isReviewerMode: boolean) => (state: AppState): State => {
+  const allIds = state.user.allIds;
+  const byId = { ...state.user.byId };
+
+  const selectedEmployeeId = state.editPerformancePage.employeeId;
+
+  let result: string[] = [...allIds];
+  if (isReviewerMode) {
+    result = result.filter(id => id !== selectedEmployeeId);
+  }
+  return { userIds: result, byId: byId };
+};
 
 const UserSelector: React.SFC<ComponentProps> = props => {
-  const classes = useStyles();
-  const userIds = useSelector(usersSelector);
+  const state = useSelector(usersSelector(props.reviewers ?? false));
+  const allIds = state.userIds;
+  const byId = state.byId;
   return (
     <Grid container direction={"column"} spacing={2}>
       <Grid item>
@@ -36,23 +56,36 @@ const UserSelector: React.SFC<ComponentProps> = props => {
           value={props.values}
           fullWidth
           multiple={props.multiple}
+          onChange={props.onChange}
           renderValue={
             props.multiple
               ? selected => {
                   return (
                     <Box>
-                      {(selected as string[]).map(selectedId => (
-                        <UserChip userId={selectedId} />
-                      ))}
+                      {(selected as string[]).map((selectedId, index) => {
+                        const user = byId[selectedId];
+                        return (
+                          <Chip
+                            key={index}
+                            label={`${user.firstName} ${user.lastName}`}
+                          />
+                        );
+                      })}
                     </Box>
                   );
                 }
               : undefined
           }
         >
-          {userIds.map((id, index) => (
-            <UserMenuItem key={index} userId={id} />
-          ))}
+          {allIds.map((id, index) => {
+            const user = byId[id];
+            return (
+              <MenuItem
+                key={index}
+                value={id}
+              >{`${user.firstName} ${user.lastName}`}</MenuItem>
+            );
+          })}
         </Select>
       </Grid>
     </Grid>
@@ -61,20 +94,8 @@ const UserSelector: React.SFC<ComponentProps> = props => {
 
 UserSelector.defaultProps = {
   multiple: false,
+  reviewers: false,
 };
-
-interface UserMenuItemProps {
-  userId: string;
-}
-
-const UserMenuItem: React.SFC<UserMenuItemProps> = forwardRef(props => {
-  const user = useSelector((store: AppState) => store.user.byId[props.userId]);
-  return (
-    <MenuItem
-      value={props.userId}
-    >{`${user.firstName} ${user.lastName}`}</MenuItem>
-  );
-});
 
 interface UserChipProps {
   userId: string;
@@ -85,11 +106,5 @@ const UserChip: React.SFC<UserChipProps> = props => {
 
   return <Chip label={`${user.firstName} ${user.lastName}`} />;
 };
-
-const useStyles = makeStyles(() => ({
-  clip: {
-    margin: 1,
-  },
-}));
 
 export default UserSelector;

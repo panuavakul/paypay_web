@@ -9,21 +9,37 @@ import {
   Box,
   makeStyles,
   TextField,
-  InputLabel,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import UserSelector from "../../components/UserSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../redux/slices/userSlice";
+import {
+  EditPerformancePageState,
+  setEmployeeIdAction,
+  setAchievementAction,
+  setReviewerIdsAction,
+} from "../../redux/slices/editPerformancePageSlice";
+import { AppState } from "../../redux/store";
 
 interface ComponentProps {
   isNew: boolean;
 }
 
+const selector = (state: AppState): EditPerformancePageState => {
+  const employeeId = state.editPerformancePage.employeeId;
+  const reviewerIds = state.editPerformancePage.reviewerIds;
+  const achievement = state.editPerformancePage.achievement;
+  return {
+    employeeId: employeeId,
+    reviewerIds: reviewerIds,
+    achievement: achievement,
+  };
+};
+
 const NewPerformancePage: React.SFC<ComponentProps> = props => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const state = useSelector(selector);
 
   useEffect(() => {
     dispatch(getUsersAction());
@@ -43,23 +59,35 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                 <UserSelector
                   id={"employee-selector"}
                   label={"Employee"}
-                  values={""}
-                  // onChange={userId => {}}
+                  values={state.employeeId}
+                  onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                    const id = event.target.value as string;
+                    dispatch(setEmployeeIdAction(id));
+                  }}
                 />
               </Grid>
               <Grid item>
                 <UserSelector
                   id={"reviewers-selector"}
                   label={"Reviewers"}
-                  values={[]}
+                  values={state.reviewerIds}
                   multiple
-                  // onChange={userId => {}}
+                  reviewers
+                  onChange={event => {
+                    const values: string[] = event.target.value as string[];
+                    dispatch(setReviewerIdsAction(values));
+                  }}
                 />
               </Grid>
               <Grid item>
                 <TextField
                   label={"Achievements"}
                   placeholder={"Some cool stuffs this person did"}
+                  value={state.achievement}
+                  onChange={event => {
+                    const value = event.target.value;
+                    dispatch(setAchievementAction(value));
+                  }}
                   fullWidth
                   multiline
                   required
@@ -85,9 +113,6 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
 const useStyles = makeStyles(() => ({
   card: {
     padding: 16,
-  },
-  actions: {
-    backgroundColor: "black",
   },
 }));
 
