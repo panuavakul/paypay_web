@@ -5,6 +5,7 @@ import { AppState } from "../../redux/store";
 import { getPerformancesAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import AddFab from "../../components/AddFab";
 
 interface ComponentProps {}
 
@@ -31,6 +32,7 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
           </Grid>
         ))}
       </Grid>
+      <AddFab to={""} />
     </React.Fragment>
   );
 };
