@@ -10,14 +10,14 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={store}>
         <App />
       </Provider>
     </MuiThemeProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

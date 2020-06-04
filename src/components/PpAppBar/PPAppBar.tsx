@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import HttpService from "../../services/HttpService";
 import PPPerformanceService from "../../services/PPPerformanceService";
 
 interface PPAppBar {}

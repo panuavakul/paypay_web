@@ -24,14 +24,12 @@ const AddFab: React.SFC<ComponentProps> = props => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      position: "fixed",
-      bottom: theme.spacing(4),
-      right: theme.spacing(4),
-    },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    position: "fixed",
+    bottom: theme.spacing(4),
+    right: theme.spacing(4),
+  },
+}));
 
 export default AddFab;
