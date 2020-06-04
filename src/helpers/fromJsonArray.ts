@@ -7,6 +7,5 @@ export function fromJsonArray<T>(data: any, converter: (data: any) => T): T[] {
     const performance = converter(data[index]);
     result.push(performance);
   }
-  console.log(result);
   return result;
 }
