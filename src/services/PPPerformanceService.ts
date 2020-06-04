@@ -28,11 +28,18 @@ class PPPerformanceService {
 
     const user: User = UserHelper.fromJson(data.user);
 
-    const feedbacks: Feedback[] = FeedbackHelper.fromJsonArray(data.feedbacks);
+    const rawFeedbacks: any[] = data.feedbacks;
+    let feedbackUsers: User[] = [];
+    for (let index in rawFeedbacks) {
+      feedbackUsers.push(UserHelper.fromJson(rawFeedbacks[index].user));
+    }
+
+    const feedbacks: Feedback[] = FeedbackHelper.fromJsonArray(rawFeedbacks);
+    const users: User[] = [user, ...feedbackUsers];
 
     return {
       performance: result,
-      user: user,
+      users: users,
       feedbacks: feedbacks,
     };
   }
@@ -45,7 +52,7 @@ export interface PPPerformanceGetResult {
 
 export interface PPPerformanceGetWithIdResult {
   performance: PPPerformance;
-  user: User;
+  users: User[];
   feedbacks: Feedback[];
 }
 

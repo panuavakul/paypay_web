@@ -26,8 +26,6 @@ const idsSelector = (performanceId: string) => (state: AppState): State => {
     return parentPerformanceId === performanceId;
   });
 
-  console.log(feedbackIds);
-
   return { feedbackIds: feedbackIds };
 };
 

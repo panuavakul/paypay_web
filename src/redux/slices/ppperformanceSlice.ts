@@ -4,6 +4,7 @@ import PPPerformanceService from "../../services/PPPerformanceService";
 import { mergeOneUserAction, mergeAllUserAction } from "./userSlice";
 import { mergeAllFeedbackAction } from "./feedbackSlice";
 import { FeedbackHelper } from "../../models/Feedback";
+import { mergeAll } from "../reducer_helpers/mergeAll";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(
@@ -24,12 +25,10 @@ export const getPerformanceAction = createAsyncThunk<PPPerformance, string>(
   async (id, thunkApi) => {
     const result = await PPPerformanceService.getWithId(id);
 
-    const user = result.user;
+    const users = result.users;
     const feedbacks = result.feedbacks;
 
-    thunkApi.dispatch(mergeOneUserAction(user));
-
-    console.log(feedbacks);
+    thunkApi.dispatch(mergeAllUserAction(users));
 
     thunkApi.dispatch(mergeAllFeedbackAction(feedbacks));
 
