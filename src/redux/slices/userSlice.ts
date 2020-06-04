@@ -11,8 +11,8 @@ export const getUsersAction = createAsyncThunk("users_get_users", async () => {
 });
 
 // Actions
-export const mergeOneAction = createAction<User>("data_user_merge_one");
-export const mergeAllAction = createAction<User[]>("data_user_merge_all");
+export const mergeOneUserAction = createAction<User>("data_user_merge_one");
+export const mergeAllUserAction = createAction<User[]>("data_user_merge_all");
 
 // State
 
@@ -36,11 +36,11 @@ const userSlice = createSlice({
       return mergeAll<User>(state, action.payload);
     });
 
-    builder.addCase(mergeOneAction, (state, action) => {
+    builder.addCase(mergeOneUserAction, (state, action) => {
       return mergeOne<User>(state, action.payload);
     });
 
-    builder.addCase(mergeAllAction, (state, action) => {
+    builder.addCase(mergeAllUserAction, (state, action) => {
       return mergeAll<User>(state, action.payload);
     });
   },

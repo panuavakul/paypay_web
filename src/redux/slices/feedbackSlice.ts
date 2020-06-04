@@ -4,8 +4,10 @@ import { mergeOne } from "../reducer_helpers/mergeOne";
 import { mergeAll } from "../reducer_helpers/mergeAll";
 
 // Actions
-export const mergeOneAction = createAction<Feedback>("data_feedback_merge_one");
-export const mergeAllAction = createAction<Feedback[]>(
+export const mergeOneFeedbackAction = createAction<Feedback>(
+  "data_feedback_merge_one"
+);
+export const mergeAllFeedbackAction = createAction<Feedback[]>(
   "data_feedback_merge_all"
 );
 
@@ -26,11 +28,11 @@ const feedbackSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(mergeOneAction, (state, action) => {
+    builder.addCase(mergeOneFeedbackAction, (state, action) => {
       return mergeOne<Feedback>(state, action.payload);
     });
 
-    builder.addCase(mergeAllAction, (state, action) => {
+    builder.addCase(mergeAllFeedbackAction, (state, action) => {
       return mergeAll<Feedback>(state, action.payload);
     });
   },

@@ -5,7 +5,7 @@ import {
 } from "./slices/ppperformanceSlice";
 import { combineReducers } from "redux";
 import { userReducer, UserState } from "./slices/userSlice";
-import { feedbackReducer } from "./slices/feedbackSlice";
+import { feedbackReducer, FeedbackState } from "./slices/feedbackSlice";
 
 const reducer = combineReducers({
   user: userReducer,
@@ -16,6 +16,7 @@ const reducer = combineReducers({
 export interface AppState {
   user: UserState;
   ppperformance: PPPerformanceState;
+  feedback: FeedbackState;
 }
 
 export const store = configureStore({

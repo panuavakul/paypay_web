@@ -69,11 +69,7 @@ const PerformanceCard: React.SFC<ComponentProps> = props => {
               </Grid>
               <Grid item>
                 {state.hasData ? (
-                  <Typography
-                    className={classes.achievement}
-                    color="textPrimary"
-                    variant={"body1"}
-                  >
+                  <Typography color="textPrimary" variant={"body1"}>
                     {state.achievement}
                   </Typography>
                 ) : (
@@ -104,9 +100,6 @@ const useStyles = makeStyles({
   averageLabel: {
     fontSize: 16,
     fontWeight: "bold",
-  },
-  achievement: {
-    maxLines: 1,
   },
 });
 
