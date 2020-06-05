@@ -1,5 +1,5 @@
 import HttpService from "./HttpService";
-import User, { UserHelper } from "../models/User";
+import User, { UserHelper, UserPostBody } from "../models/User";
 import PPPerformance, { PPPerformanceHelper } from "../models/PPPerformance";
 
 class UserService {
@@ -25,6 +25,10 @@ class UserService {
       // TODO
       feedback: [],
     };
+  }
+
+  static async post(body: UserPostBody) {
+    await HttpService.post(this.path, body);
   }
 }
 

@@ -20,6 +20,7 @@ import {
   setReviewerIdsAction,
   setMonthAction,
   postPerformance,
+  resetPerformancePage,
 } from "../../redux/slices/editPerformancePageSlice";
 import { AppState } from "../../redux/store";
 import MonthPicker from "../../components/MonthPicker/MonthPicker";
@@ -116,6 +117,9 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   onClick={async () => {
                     const result: any = await dispatch(postPerformance());
                     const type: string = result.type;
+
+                    dispatch(resetPerformancePage());
+
                     // length is always > 1
                     const thunkType = type.split("/")[1];
                     if (thunkType === "fulfilled") {

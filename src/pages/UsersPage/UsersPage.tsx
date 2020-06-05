@@ -4,6 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserCard from "../../components/UserCard";
+import AddFab from "../../components/AddFab";
 
 interface ComponentProps {}
 
@@ -30,6 +31,7 @@ const UserPage: React.SFC<ComponentProps> = props => {
           </Grid>
         ))}
       </Grid>
+      <AddFab to={"/users/new"} />
     </React.Fragment>
   );
 };

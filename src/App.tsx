@@ -13,6 +13,7 @@ import EditPerformancePage from "./pages/EditPerformancePage";
 import { useDispatch, useSelector } from "react-redux";
 import { hideSnackBarAction } from "./redux/slices/snackbarSlice";
 import { AppState } from "./redux/store";
+import EditUserPage from "./pages/EditUserPage";
 
 function App() {
   const classes = useStyles();
@@ -36,6 +37,7 @@ function App() {
               component={PerformanceDetailPage}
             />
             <Route exact path={"/users"} component={UserPage} />
+            <Route exact path={"/users/new"} component={EditUserPage} />
 
             <Route component={NotFoundPage} />
           </Switch>

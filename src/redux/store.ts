@@ -13,6 +13,10 @@ import {
 import { loadingMiddleware } from "./middlewares/loadingMiddleware";
 import { commonReducer, CommonState } from "./slices/commonSlice";
 import { SnackbarState, snackbarReducer } from "./slices/snackbarSlice";
+import {
+  EditUserPageState,
+  editUserPageReducer,
+} from "./slices/editUserPageSlice";
 
 const reducer = combineReducers({
   common: commonReducer,
@@ -21,6 +25,7 @@ const reducer = combineReducers({
   ppperformance: ppperformanceReducer,
   feedback: feedbackReducer,
   editPerformancePage: editPerformancePageReducer,
+  editUserPage: editUserPageReducer,
 });
 
 export interface AppState {
@@ -30,6 +35,7 @@ export interface AppState {
   ppperformance: PPPerformanceState;
   feedback: FeedbackState;
   editPerformancePage: EditPerformancePageState;
+  editUserPage: EditUserPageState;
 }
 
 export const store = configureStore({

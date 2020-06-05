@@ -1,10 +1,14 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { postPerformance } from "../slices/editPerformancePageSlice";
+import { postUserAction } from "../slices/editUserPageSlice";
 import { startLoadingAction, finishLoadingAction } from "../slices/commonSlice";
 import { showSnackBarAction } from "../slices/snackbarSlice";
 import SnackBarSeverity from "../../enums/SnackBarSeverity";
 
-const loadingActions: string[] = [postPerformance.typePrefix];
+const loadingActions: string[] = [
+  postPerformance.typePrefix,
+  postUserAction.typePrefix,
+];
 
 export const loadingMiddleware: Middleware = store => next => action => {
   const type: string = action.type;
@@ -12,8 +16,15 @@ export const loadingMiddleware: Middleware = store => next => action => {
   const splitted = type.split("/");
   const prefix = splitted[0];
   if (loadingActions.includes(prefix)) {
+    const isSuccess: boolean = action.payload;
+    if (!isSuccess) {
+      // If payload is not true then there is a validation error
+      // Do not show loading or snackbar
+      return next(action);
+    }
     // the thunk action should have length > 1
     const loadingType = splitted[1];
+    console.log(action);
     switch (loadingType) {
       case "pending":
         store.dispatch(startLoadingAction());

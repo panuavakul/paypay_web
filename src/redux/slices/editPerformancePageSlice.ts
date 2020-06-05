@@ -5,6 +5,10 @@ import * as Validator from "../../helpers/validators";
 import { PPPerformancePostBody } from "../../models/PPPerformance";
 
 // Actions
+export const resetPerformancePage = createAction<void>(
+  "page_edit_performance_reset"
+);
+
 export const setEmployeeIdAction = createAction<string>(
   "page_edit_performance_set_employee_id"
 );
@@ -70,8 +74,7 @@ export const postPerformance = createAsyncThunk(
     }
 
     if (hasError) {
-      console.log("error");
-      return;
+      return false;
     }
 
     const date = new Date(new Date().getFullYear(), month).toISOString();
@@ -86,7 +89,7 @@ export const postPerformance = createAsyncThunk(
     };
 
     await PPPerformanceService.post(performanceToPost);
-    console.log("completed");
+    return true;
   }
 );
 
@@ -119,41 +122,72 @@ const editPerformancePageSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(setEmployeeIdAction, (state, action) => {
-      const reviewerIds = [...state.reviewerIds];
-
-      // When the employee is changed remove the value if he/she is selected
-      // in the reviewers list
-      const indexToRemove = reviewerIds.indexOf(action.payload);
-      if (indexToRemove > -1) {
-        reviewerIds.splice(indexToRemove, 1);
+    builder.addCase(
+      resetPerformancePage,
+      (state, action): EditPerformancePageState => {
+        return { ...initialState };
       }
-      return { ...state, employeeId: action.payload, reviewerIds: reviewerIds };
-    });
+    );
+    builder.addCase(
+      setEmployeeIdAction,
+      (state, action): EditPerformancePageState => {
+        const reviewerIds = [...state.reviewerIds];
 
-    builder.addCase(setMonthAction, (state, action) => {
-      return { ...state, month: action.payload };
-    });
+        // When the employee is changed remove the value if he/she is selected
+        // in the reviewers list
+        const indexToRemove = reviewerIds.indexOf(action.payload);
+        if (indexToRemove > -1) {
+          reviewerIds.splice(indexToRemove, 1);
+        }
+        return {
+          ...state,
+          employeeId: action.payload,
+          reviewerIds: reviewerIds,
+        };
+      }
+    );
 
-    builder.addCase(setReviewerIdsAction, (state, action) => {
-      return { ...state, reviewerIds: action.payload };
-    });
+    builder.addCase(
+      setMonthAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, month: action.payload };
+      }
+    );
 
-    builder.addCase(setAchievementAction, (state, action) => {
-      return { ...state, achievement: action.payload };
-    });
+    builder.addCase(
+      setReviewerIdsAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, reviewerIds: action.payload };
+      }
+    );
 
-    builder.addCase(setEmployeeIdErrorAction, (state, action) => {
-      return { ...state, employeeErrorMsg: action.payload };
-    });
+    builder.addCase(
+      setAchievementAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, achievement: action.payload };
+      }
+    );
 
-    builder.addCase(setReviewerIdsErrorAction, (state, action) => {
-      return { ...state, reviewersErrorMsg: action.payload };
-    });
+    builder.addCase(
+      setEmployeeIdErrorAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, employeeErrorMsg: action.payload };
+      }
+    );
 
-    builder.addCase(setAchievementErrorAction, (state, action) => {
-      return { ...state, achievementErrorMsg: action.payload };
-    });
+    builder.addCase(
+      setReviewerIdsErrorAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, reviewersErrorMsg: action.payload };
+      }
+    );
+
+    builder.addCase(
+      setAchievementErrorAction,
+      (state, action): EditPerformancePageState => {
+        return { ...state, achievementErrorMsg: action.payload };
+      }
+    );
   },
 });
 

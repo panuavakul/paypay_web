@@ -8,6 +8,11 @@ interface User extends BaseData {
   feedbackIds: string[];
 }
 
+export interface UserPostBody {
+  firstName: string;
+  lastName: string;
+}
+
 // This is the model for the User
 export class UserHelper {
   static fromJson(data: any): User {
