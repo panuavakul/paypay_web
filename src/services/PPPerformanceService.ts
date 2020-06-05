@@ -1,5 +1,8 @@
 import HttpService from "./HttpService";
-import PPPerformance, { PPPerformanceHelper } from "../models/PPPerformance";
+import PPPerformance, {
+  PPPerformanceHelper,
+  PPPerformancePostBody,
+} from "../models/PPPerformance";
 import User, { UserHelper } from "../models/User";
 import Feedback, { FeedbackHelper } from "../models/Feedback";
 
@@ -42,6 +45,13 @@ class PPPerformanceService {
       users: users,
       feedbacks: feedbacks,
     };
+  }
+
+  static async post(body: PPPerformancePostBody) {
+    await HttpService.post(this.path, body);
+    // The backend will send back the model that was created
+    // and we should parse it and put it in the store
+    // but for simplicity just ignore it for now
   }
 }
 

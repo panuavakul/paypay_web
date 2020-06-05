@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PPPerformancePostBody } from "../models/PPPerformance";
 
 class HttpService {
   static url = "http://localhost:3080";
@@ -13,6 +14,13 @@ class HttpService {
     console.log("id", id);
 
     const response = await axios.get(requestUrl);
+    return response.data;
+  }
+
+  static async post(path: string, data: PPPerformancePostBody): Promise<any> {
+    const requestUrl = `${this.url}/${path}`;
+    console.log(requestUrl);
+    const response = await axios.post(requestUrl, data);
     return response.data;
   }
 }

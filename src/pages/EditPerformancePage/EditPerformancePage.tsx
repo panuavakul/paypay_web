@@ -18,22 +18,18 @@ import {
   setEmployeeIdAction,
   setAchievementAction,
   setReviewerIdsAction,
+  setMonthAction,
+  postPerformance,
 } from "../../redux/slices/editPerformancePageSlice";
 import { AppState } from "../../redux/store";
+import MonthPicker from "../../components/MonthPicker/MonthPicker";
 
 interface ComponentProps {
   isNew: boolean;
 }
 
 const selector = (state: AppState): EditPerformancePageState => {
-  const employeeId = state.editPerformancePage.employeeId;
-  const reviewerIds = state.editPerformancePage.reviewerIds;
-  const achievement = state.editPerformancePage.achievement;
-  return {
-    employeeId: employeeId,
-    reviewerIds: reviewerIds,
-    achievement: achievement,
-  };
+  return { ...state.editPerformancePage };
 };
 
 const NewPerformancePage: React.SFC<ComponentProps> = props => {
@@ -60,9 +56,20 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   id={"employee-selector"}
                   label={"Employee"}
                   values={state.employeeId}
+                  errorMsg={state.employeeErrorMsg}
                   onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
                     const id = event.target.value as string;
                     dispatch(setEmployeeIdAction(id));
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <MonthPicker
+                  label={"Performance Month"}
+                  value={state.month}
+                  onChange={event => {
+                    const month = event.target.value as number;
+                    dispatch(setMonthAction(month));
                   }}
                 />
               </Grid>
@@ -73,6 +80,7 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   values={state.reviewerIds}
                   multiple
                   reviewers
+                  errorMsg={state.reviewersErrorMsg}
                   onChange={event => {
                     const values: string[] = event.target.value as string[];
                     dispatch(setReviewerIdsAction(values));
@@ -84,6 +92,8 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   label={"Achievements"}
                   placeholder={"Some cool stuffs this person did"}
                   value={state.achievement}
+                  error={state.achievementErrorMsg.length > 0}
+                  helperText={state.achievementErrorMsg}
                   onChange={event => {
                     const value = event.target.value;
                     dispatch(setAchievementAction(value));
@@ -98,7 +108,13 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
           <CardActions>
             <Grid container justify={"flex-end"}>
               <Grid item>
-                <Button color={"primary"} variant="contained">
+                <Button
+                  color={"primary"}
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(postPerformance());
+                  }}
+                >
                   Add
                 </Button>
               </Grid>

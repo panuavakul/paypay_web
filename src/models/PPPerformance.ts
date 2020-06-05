@@ -6,7 +6,15 @@ interface PPPerformance extends BaseData {
   date: string;
   userId: string;
   feedbackIds: string[];
+  reviewerIds: string[];
   achievement: string;
+}
+
+export interface PPPerformancePostBody {
+  date: string;
+  userId: string;
+  achievement: string;
+  reviewerIds: string[];
 }
 
 export class PPPerformanceHelper {
@@ -17,6 +25,7 @@ export class PPPerformanceHelper {
       userId: data.userId,
       feedbackIds: data.feedbackIds,
       achievement: data.achievement,
+      reviewerIds: data.reviewerIds,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     };
