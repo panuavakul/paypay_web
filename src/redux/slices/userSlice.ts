@@ -32,17 +32,26 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getUsersAction.fulfilled, (state, action) => {
-      return mergeAll<User>(state, action.payload);
-    });
+    builder.addCase(
+      getUsersAction.fulfilled,
+      (state, action): UserState => {
+        return mergeAll<User>(state, action.payload);
+      }
+    );
 
-    builder.addCase(mergeOneUserAction, (state, action) => {
-      return mergeOne<User>(state, action.payload);
-    });
+    builder.addCase(
+      mergeOneUserAction,
+      (state, action): UserState => {
+        return mergeOne<User>(state, action.payload);
+      }
+    );
 
-    builder.addCase(mergeAllUserAction, (state, action) => {
-      return mergeAll<User>(state, action.payload);
-    });
+    builder.addCase(
+      mergeAllUserAction,
+      (state, action): UserState => {
+        return mergeAll<User>(state, action.payload);
+      }
+    );
   },
 });
 

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideSnackBarAction } from "./redux/slices/snackbarSlice";
 import { AppState } from "./redux/store";
 import EditUserPage from "./pages/EditUserPage";
+import SelectUserPage from "./pages/SelectUserPage";
 
 function App() {
   const classes = useStyles();
@@ -25,6 +26,7 @@ function App() {
         <PPAppBar />
         <Container maxWidth="sm">
           <Switch>
+            <Route exact path={"/"} component={SelectUserPage} />
             <Route exact path={"/performances"} component={PerformancePage} />
             <Route
               exact

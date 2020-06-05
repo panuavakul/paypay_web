@@ -17,6 +17,10 @@ import {
   EditUserPageState,
   editUserPageReducer,
 } from "./slices/editUserPageSlice";
+import {
+  SelectUserPageState,
+  selectUserPageReducer,
+} from "./slices/selectUserPageSlice";
 
 const reducer = combineReducers({
   common: commonReducer,
@@ -26,6 +30,7 @@ const reducer = combineReducers({
   feedback: feedbackReducer,
   editPerformancePage: editPerformancePageReducer,
   editUserPage: editUserPageReducer,
+  selectUserPage: selectUserPageReducer,
 });
 
 export interface AppState {
@@ -36,6 +41,7 @@ export interface AppState {
   feedback: FeedbackState;
   editPerformancePage: EditPerformancePageState;
   editUserPage: EditUserPageState;
+  selectUserPage: SelectUserPageState;
 }
 
 export const store = configureStore({
