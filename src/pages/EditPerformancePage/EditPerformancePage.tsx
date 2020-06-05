@@ -23,6 +23,7 @@ import {
 } from "../../redux/slices/editPerformancePageSlice";
 import { AppState } from "../../redux/store";
 import MonthPicker from "../../components/MonthPicker/MonthPicker";
+import { useHistory } from "react-router-dom";
 
 interface ComponentProps {
   isNew: boolean;
@@ -36,6 +37,7 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector(selector);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getUsersAction());
@@ -111,8 +113,14 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                 <Button
                   color={"primary"}
                   variant="contained"
-                  onClick={() => {
-                    dispatch(postPerformance());
+                  onClick={async () => {
+                    const result: any = await dispatch(postPerformance());
+                    const type: string = result.type;
+                    // length is always > 1
+                    const thunkType = type.split("/")[1];
+                    if (thunkType === "fulfilled") {
+                      history.push("/performances");
+                    }
                   }}
                 >
                   Add

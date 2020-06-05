@@ -1,13 +1,15 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import { Toolbar, Typography, Button } from "@material-ui/core";
+import { Toolbar, Typography, Button, LinearProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PPPerformanceService from "../../services/PPPerformanceService";
+import { useSelector } from "react-redux";
+import { AppState } from "../../redux/store";
 
-interface PPAppBar {}
-
-const PPAppBar: React.SFC<PPAppBar> = props => {
+const PPAppBar: React.SFC = props => {
   const classes = useStyles();
+  const isLoading = useSelector((store: AppState) => store.common.isLoading);
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
@@ -27,6 +29,7 @@ const PPAppBar: React.SFC<PPAppBar> = props => {
           Sign In
         </Button>
       </Toolbar>
+      {isLoading && <LinearProgress />}
     </AppBar>
   );
 };

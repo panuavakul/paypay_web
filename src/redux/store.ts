@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   ppperformanceReducer,
   PPPerformanceState,
@@ -10,8 +10,13 @@ import {
   editPerformancePageReducer,
   EditPerformancePageState,
 } from "./slices/editPerformancePageSlice";
+import { loadingMiddleware } from "./middlewares/loadingMiddleware";
+import { commonReducer, CommonState } from "./slices/commonSlice";
+import { SnackbarState, snackbarReducer } from "./slices/snackbarSlice";
 
 const reducer = combineReducers({
+  common: commonReducer,
+  snackbar: snackbarReducer,
   user: userReducer,
   ppperformance: ppperformanceReducer,
   feedback: feedbackReducer,
@@ -19,6 +24,8 @@ const reducer = combineReducers({
 });
 
 export interface AppState {
+  common: CommonState;
+  snackbar: SnackbarState;
   user: UserState;
   ppperformance: PPPerformanceState;
   feedback: FeedbackState;
@@ -27,4 +34,5 @@ export interface AppState {
 
 export const store = configureStore({
   reducer: reducer,
+  middleware: [...getDefaultMiddleware(), loadingMiddleware],
 });
