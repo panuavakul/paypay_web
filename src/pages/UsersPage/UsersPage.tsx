@@ -5,6 +5,8 @@ import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserCard from "../../components/UserCard";
 import AddFab from "../../components/AddFab";
+import PageSelector from "../../components/PageSelector";
+import AdminPageType from "../../enums/AdminPageType";
 
 interface ComponentProps {}
 
@@ -21,9 +23,7 @@ const UserPage: React.SFC<ComponentProps> = props => {
 
   return (
     <React.Fragment>
-      <Typography color="textPrimary" variant={"h4"} gutterBottom>
-        Users
-      </Typography>
+      <PageSelector mode={AdminPageType.Users} />
       <Grid container direction={"column"} spacing={2}>
         {userIds.map((id, index) => (
           <Grid item key={index}>

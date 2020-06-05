@@ -5,10 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import PPPerformanceService from "../../services/PPPerformanceService";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
+import { useHistory } from "react-router-dom";
 
 const PPAppBar: React.SFC = props => {
   const classes = useStyles();
   const isLoading = useSelector((store: AppState) => store.common.isLoading);
+  const history = useHistory();
 
   return (
     <AppBar className={classes.root} position="static">
@@ -16,17 +18,14 @@ const PPAppBar: React.SFC = props => {
         <Typography variant="h6" className={classes.leading}>
           PayPay Challenge
         </Typography>
-        <div className={classes.body} />
         <Button
           className={classes.signinButton}
           color="inherit"
-          onClick={async () => {
-            // Debug Remove this
-            const temp = await PPPerformanceService.get();
-            console.log(temp);
+          onClick={() => {
+            history.push("/");
           }}
         >
-          Sign In
+          Sign Out
         </Button>
       </Toolbar>
       {isLoading && <LinearProgress />}

@@ -87,7 +87,7 @@ const SelectUserPage: React.SFC = props => {
       <Grid item>
         <Button
           fullWidth
-          disabled={!hasUser}
+          disabled={!hasUser || state.selectedUserId.length < 1}
           variant="contained"
           color={"primary"}
         >

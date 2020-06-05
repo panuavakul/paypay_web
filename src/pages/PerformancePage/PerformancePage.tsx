@@ -6,6 +6,8 @@ import { getPerformancesAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddFab from "../../components/AddFab";
+import PageSelector from "../../components/PageSelector";
+import AdminPageType from "../../enums/AdminPageType";
 
 interface ComponentProps {}
 
@@ -20,9 +22,7 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
   }, []);
   return (
     <React.Fragment>
-      <Typography color="textPrimary" variant={"h4"} gutterBottom>
-        Performances
-      </Typography>
+      <PageSelector mode={AdminPageType.Performances} />
       <Grid container direction={"column"} spacing={2}>
         {performanceIds.map((id, index) => (
           <Grid item key={index}>
@@ -32,7 +32,7 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
           </Grid>
         ))}
       </Grid>
-      <AddFab to={""} />
+      <AddFab to={"/performances/new"} />
     </React.Fragment>
   );
 };
