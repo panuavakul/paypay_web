@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import PerformanceCard from "../../components/PerformanceCard";
 import { AppState } from "../../redux/store";
-import { getPerformancesAction } from "../../redux/slices/ppperformanceSlice";
+import {
+  getPerformancesAction,
+  getAssignedPerformancesAction,
+} from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddFab from "../../components/AddFab";
@@ -13,16 +16,21 @@ interface ComponentProps {}
 
 const idsSelector = (state: AppState) => state.ppperformance.allIds;
 
-const PerformancePage: React.SFC<ComponentProps> = props => {
+const InboxPage: React.SFC<ComponentProps> = props => {
   const performanceIds = useSelector(idsSelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPerformancesAction());
+    dispatch(getAssignedPerformancesAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <React.Fragment>
-      <PageSelector mode={AdminPageType.Performances} />
+      <Typography color={"textPrimary"} variant={"h4"} gutterBottom>
+        Inbox
+      </Typography>
+      <Typography color={"textSecondary"} variant={"body1"} gutterBottom>
+        Please leave feedbacks for the performance below
+      </Typography>
       <Grid container direction={"column"} spacing={2}>
         {performanceIds.map((id, index) => (
           <Grid item key={index}>
@@ -32,9 +40,8 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
           </Grid>
         ))}
       </Grid>
-      <AddFab to={"/performances/new"} />
     </React.Fragment>
   );
 };
 
-export default PerformancePage;
+export default InboxPage;

@@ -36,7 +36,6 @@ export const postUserAction = createAsyncThunk(
     };
 
     await UserService.post(body);
-    console.log("completed");
     return true;
   }
 );

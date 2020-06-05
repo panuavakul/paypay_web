@@ -12,7 +12,7 @@ class UserService {
   }
 
   static async getWithId(id: string): Promise<UserServiceDetailsResult> {
-    const data = await HttpService.get(this.path, id);
+    const data = await HttpService.get(`${this.path}/${id}`);
     const result = UserHelper.fromJson(data);
 
     const performances: PPPerformance[] = PPPerformanceHelper.fromJsonArray(

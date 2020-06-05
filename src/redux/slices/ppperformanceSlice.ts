@@ -5,6 +5,7 @@ import { mergeAllUserAction } from "./userSlice";
 import { mergeAllFeedbackAction } from "./feedbackSlice";
 import { mergeAll } from "../reducer_helpers/mergeAll";
 import { mergeOne } from "../reducer_helpers/mergeOne";
+import { AppState } from "../store";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(
@@ -36,6 +37,26 @@ export const getPerformanceAction = createAsyncThunk<PPPerformance, string>(
   }
 );
 
+export const getAssignedPerformancesAction = createAsyncThunk(
+  "performance_get_assigned_performances",
+  async (_, thunkApi) => {
+    const state = thunkApi.getState() as AppState;
+    const userId = state.common.userId;
+    if (!userId) {
+      // Reject this if use isn't signed in
+      throw Error("No user id");
+    }
+
+    const result = await PPPerformanceService.getAssigned(`${userId}`);
+    const users = result.users;
+    if (users.length > 0) {
+      thunkApi.dispatch(mergeAllUserAction(users));
+    }
+
+    return result.performances;
+  }
+);
+
 // State
 export interface PPPerformanceState {
   byId: { [key: string]: PPPerformance };
@@ -60,6 +81,13 @@ const ppperformanceSlice = createSlice({
     builder.addCase(getPerformanceAction.fulfilled, (state, action) => {
       return mergeOne<PPPerformance>(state, action.payload);
     });
+
+    builder.addCase(
+      getAssignedPerformancesAction.fulfilled,
+      (state, action) => {
+        return mergeAll<PPPerformance>(state, action.payload);
+      }
+    );
   },
 });
 

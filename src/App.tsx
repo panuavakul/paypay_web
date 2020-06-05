@@ -15,6 +15,7 @@ import { hideSnackBarAction } from "./redux/slices/snackbarSlice";
 import { AppState } from "./redux/store";
 import EditUserPage from "./pages/EditUserPage";
 import SelectUserPage from "./pages/SelectUserPage";
+import InboxPage from "./pages/InboxPage/InboxPage";
 
 function App() {
   const classes = useStyles();
@@ -40,6 +41,7 @@ function App() {
             />
             <Route exact path={"/users"} component={UserPage} />
             <Route exact path={"/users/new"} component={EditUserPage} />
+            <Route exact path={"/inbox"} component={InboxPage} />
 
             <Route component={NotFoundPage} />
           </Switch>

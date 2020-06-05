@@ -5,6 +5,7 @@ import PPPerformance, {
 } from "../models/PPPerformance";
 import User, { UserHelper } from "../models/User";
 import Feedback, { FeedbackHelper } from "../models/Feedback";
+import UserService from "./UserService";
 
 class PPPerformanceService {
   static path = "performances";
@@ -26,7 +27,7 @@ class PPPerformanceService {
   }
 
   static async getWithId(id: string): Promise<PPPerformanceGetWithIdResult> {
-    const data = await HttpService.get(this.path, id);
+    const data = await HttpService.get(`${this.path}/${id}`);
     const result = PPPerformanceHelper.fromJson(data);
 
     const user: User = UserHelper.fromJson(data.user);
@@ -45,6 +46,19 @@ class PPPerformanceService {
       users: users,
       feedbacks: feedbacks,
     };
+  }
+
+  static async getAssigned(userId: string): Promise<PPPerformanceGetResult> {
+    const path = `${UserService.path}/${userId}/${this.path}`;
+    const data: any[] = await HttpService.get(path);
+    const performances = PPPerformanceHelper.fromJsonArray(data);
+
+    const users: User[] = [];
+    for (let index in data) {
+      users.push(UserHelper.fromJson(data[index].user));
+    }
+
+    return { performances: performances, users: users };
   }
 
   static async post(body: PPPerformancePostBody) {
