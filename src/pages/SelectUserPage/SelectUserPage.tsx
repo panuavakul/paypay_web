@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserSelector from "../../components/UserSelector";
 import { AppState } from "../../redux/store";
-import { loginAsAdmin, resetCommonState } from "../../redux/slices/commonSlice";
+import {
+  loginAsAdmin,
+  resetCommonState,
+  loginAsUser,
+} from "../../redux/slices/commonSlice";
 import { useHistory } from "react-router-dom";
 import { setSelectedUserAction } from "../../redux/slices/selectUserPageSlice";
 
@@ -90,6 +94,10 @@ const SelectUserPage: React.SFC = props => {
           disabled={!hasUser || state.selectedUserId.length < 1}
           variant="contained"
           color={"primary"}
+          onClick={() => {
+            dispatch(loginAsUser(selectedUserId));
+            history.push("/inbox");
+          }}
         >
           Employee
         </Button>

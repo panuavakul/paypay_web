@@ -6,7 +6,10 @@ import AuthType from "../../enums/AuthType";
 
 const userTypeSelector = (state: AppState): boolean => {
   const { userId } = state.common;
-  return (userId ?? "").length > 0;
+  if (!userId) {
+    return false;
+  }
+  return `${userId}`.length > 0;
 };
 
 const adminTypeSelector = (state: AppState): boolean => {
