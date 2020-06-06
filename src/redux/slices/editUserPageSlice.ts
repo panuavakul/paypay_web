@@ -5,7 +5,7 @@ import { AppState } from "../store";
 import * as Validator from "../../helpers/validators";
 
 // Actions
-export const postUserAction = createAsyncThunk(
+export const postUserAction = createAsyncThunk<boolean, void>(
   "page_edituser_post",
   async (_, thunkApi) => {
     const state = thunkApi.getState() as AppState;
@@ -16,12 +16,16 @@ export const postUserAction = createAsyncThunk(
     if (firstNameValidationResult) {
       thunkApi.dispatch(setFirstNameErrorMsgAction(firstNameValidationResult));
       hasError = true;
+    } else {
+      thunkApi.dispatch(setFirstNameErrorMsgAction(""));
     }
 
     const lastNameValidationResult = Validator.validateLastName(lastName);
     if (lastNameValidationResult) {
       thunkApi.dispatch(setLastNameErrorMsgAction(lastName));
       hasError = true;
+    } else {
+      thunkApi.dispatch(setLastNameErrorMsgAction(""));
     }
 
     if (hasError) {

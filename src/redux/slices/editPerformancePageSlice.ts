@@ -38,7 +38,7 @@ export const setAchievementErrorAction = createAction<string>(
   "page_edit_performance_set_achievement_error"
 );
 
-export const postPerformance = createAsyncThunk(
+export const postPerformance = createAsyncThunk<boolean, void>(
   "page_edit_performance_post",
   async (_, thunkApi) => {
     const state = thunkApi.getState() as AppState;

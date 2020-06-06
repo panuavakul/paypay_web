@@ -118,11 +118,10 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                     const result: any = await dispatch(postPerformance());
                     const type: string = result.type;
 
-                    dispatch(resetPerformancePage());
-
                     // length is always > 1
                     const thunkType = type.split("/")[1];
                     if (thunkType === "fulfilled") {
+                      dispatch(resetPerformancePage());
                       history.push("/performances");
                     }
                   }}

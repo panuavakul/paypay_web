@@ -17,7 +17,10 @@ import {
   setFeedbackPointsAction,
   GiveFeedbackState,
   setFeedbackCommentAction,
+  postFeedbackAction,
+  resetGiveFeedbackAction,
 } from "../../redux/slices/giveFeedbackSlice";
+import { useHistory } from "react-router-dom";
 
 interface ComponentProps {
   performanceId: string;
@@ -37,6 +40,7 @@ const GiveFeedbackArea: React.SFC<ComponentProps> = props => {
   const dispatch = useDispatch();
   const state = useSelector(selector);
   const { performanceId } = props;
+  const history = useHistory();
   return (
     <React.Fragment>
       <Box paddingTop={2}>
@@ -63,7 +67,7 @@ const GiveFeedbackArea: React.SFC<ComponentProps> = props => {
                   label={"Comments"}
                   placeholder={"Hey great job! Keep it going!"}
                   value={state.comment}
-                  error={false}
+                  error={state.commentErrorMsg.length > 0}
                   helperText={state.commentErrorMsg}
                   onChange={event => {
                     const value = event.target.value;
@@ -82,7 +86,20 @@ const GiveFeedbackArea: React.SFC<ComponentProps> = props => {
                 <Button
                   color={"primary"}
                   variant="contained"
-                  onClick={async () => {}}
+                  onClick={async () => {
+                    const result: any = await dispatch(
+                      postFeedbackAction(performanceId)
+                    );
+                    const type: string = result.type;
+                    const success: boolean = result.payload;
+
+                    // length is always > 1
+                    const thunkType = type.split("/")[1];
+                    if (thunkType === "fulfilled" && success) {
+                      dispatch(resetGiveFeedbackAction());
+                      history.push("/inbox");
+                    }
+                  }}
                 >
                   Add
                 </Button>

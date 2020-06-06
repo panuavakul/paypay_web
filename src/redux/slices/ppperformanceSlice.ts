@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import PPPerformance from "../../models/PPPerformance";
 import PPPerformanceService from "../../services/PPPerformanceService";
 import { mergeAllUserAction } from "./userSlice";
@@ -6,6 +6,7 @@ import { mergeAllFeedbackAction } from "./feedbackSlice";
 import { mergeAll } from "../reducer_helpers/mergeAll";
 import { mergeOne } from "../reducer_helpers/mergeOne";
 import { AppState } from "../store";
+import { removeId } from "../reducer_helpers/removeId";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(
@@ -57,6 +58,10 @@ export const getAssignedPerformancesAction = createAsyncThunk(
   }
 );
 
+export const removeOnePerformanceWithIdAction = createAction<string>(
+  "performance_remove_one_with_id"
+);
+
 // State
 export interface PPPerformanceState {
   byId: { [key: string]: PPPerformance };
@@ -88,6 +93,11 @@ const ppperformanceSlice = createSlice({
         return mergeAll<PPPerformance>(state, action.payload);
       }
     );
+
+    builder.addCase(removeOnePerformanceWithIdAction, (state, action) => {
+      const result = removeId<PPPerformance>(state, action.payload);
+      return removeId<PPPerformance>(state, action.payload);
+    });
   },
 });
 

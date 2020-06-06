@@ -4,10 +4,12 @@ import { postUserAction } from "../slices/editUserPageSlice";
 import { startLoadingAction, finishLoadingAction } from "../slices/commonSlice";
 import { showSnackBarAction } from "../slices/snackbarSlice";
 import SnackBarSeverity from "../../enums/SnackBarSeverity";
+import { postFeedbackAction } from "../slices/giveFeedbackSlice";
 
 const loadingActions: string[] = [
   postPerformance.typePrefix,
   postUserAction.typePrefix,
+  postFeedbackAction.typePrefix,
 ];
 
 export const loadingMiddleware: Middleware = store => next => action => {
@@ -24,7 +26,6 @@ export const loadingMiddleware: Middleware = store => next => action => {
     }
     // the thunk action should have length > 1
     const loadingType = splitted[1];
-    console.log(action);
     switch (loadingType) {
       case "pending":
         store.dispatch(startLoadingAction());

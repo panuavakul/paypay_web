@@ -17,13 +17,16 @@ const InboxPage: React.SFC<ComponentProps> = props => {
     dispatch(getAssignedPerformancesAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const hasAssigned = performanceIds.length > 0;
   return (
     <React.Fragment>
       <Typography color={"textPrimary"} variant={"h4"} gutterBottom>
         Inbox
       </Typography>
       <Typography color={"textSecondary"} variant={"body1"} gutterBottom>
-        Please leave feedbacks for the performance below
+        {hasAssigned
+          ? "Please leave feedbacks for the performance below"
+          : "No review has been assigned to you yet"}
       </Typography>
       <Grid container direction={"column"} spacing={2}>
         {performanceIds.map((id, index) => (

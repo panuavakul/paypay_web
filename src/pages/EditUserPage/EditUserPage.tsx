@@ -95,11 +95,10 @@ const EditUserPage: React.SFC<ComponentProps> = props => {
                     const type: string = result.type;
                     const success: boolean = result.payload;
 
-                    dispatch(resetEditUserPage());
-
                     // length is always > 1
                     const thunkType = type.split("/")[1];
                     if (thunkType === "fulfilled" && success) {
+                      dispatch(resetEditUserPage());
                       history.push("/users");
                     }
                   }}
