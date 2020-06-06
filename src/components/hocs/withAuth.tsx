@@ -18,6 +18,9 @@ const eitherTypeSelector = (state: AppState): boolean => {
   return userTypeSelector(state) || adminTypeSelector(state);
 };
 
+/// This component act as a fake auth checking HOC
+/// in reality, this component will check if there is auth
+/// and check type and render accordingly
 export const withAuth = (type: AuthType) => <T extends object>(
   Component: React.ComponentType<T>
 ) => (props: T) => {
