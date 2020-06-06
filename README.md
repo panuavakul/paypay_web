@@ -12,5 +12,7 @@ Please run the paypay-back (backend) before starting the web
 # How to run
 
 ```
-docker-compose up
+docker-compose up -d
 ```
+
+※ It might take a little time for the service to start
