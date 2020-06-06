@@ -27,7 +27,7 @@ const selector = (performanceId: string) => (state: AppState): State => {
   return {
     name: user ? `${user.firstName} ${user.lastName}` : "",
     achievement: performance?.achievement ?? "",
-    date: date ? `${date.getFullYear()}/${date.getMonth()}` : "",
+    date: date ? `${date.getFullYear()}/${date.getMonth() + 1}` : "",
     hasData: hasData,
   };
 };

@@ -77,7 +77,14 @@ export const postPerformance = createAsyncThunk<boolean, void>(
       return false;
     }
 
-    const date = new Date(new Date().getFullYear(), month).toISOString();
+    const date = new Date(
+      new Date().getFullYear(),
+      month - 1,
+      1,
+      0
+    ).toISOString();
+    console.log(month - 1);
+    console.log(date);
 
     const convertedReviewerIds = reviewerIds.map(id => `${id}`);
 
