@@ -25,6 +25,7 @@ import {
 import { AppState } from "../../redux/store";
 import MonthPicker from "../../components/MonthPicker/MonthPicker";
 import { useHistory } from "react-router-dom";
+import { withAdmin } from "../../components/hocs/withAdmin";
 
 interface ComponentProps {
   isNew: boolean;
@@ -143,4 +144,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default NewPerformancePage;
+export default withAdmin(NewPerformancePage);

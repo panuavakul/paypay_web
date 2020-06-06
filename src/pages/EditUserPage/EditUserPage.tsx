@@ -21,6 +21,7 @@ import {
   postUserAction,
   resetEditUserPage,
 } from "../../redux/slices/editUserPageSlice";
+import { withAdmin } from "../../components/hocs/withAdmin";
 
 interface ComponentProps {
   isNew: boolean;
@@ -120,4 +121,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default EditUserPage;
+export default withAdmin(EditUserPage);

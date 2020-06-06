@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import FeedbackListArea from "./FeedbackListArea";
 import GiveFeedbackArea from "./GiveFeedbackArea";
+import { withAdminOrUser } from "../../components/hocs/withAdminOrUser";
 
 interface RouteParams {
   id: string;
@@ -61,4 +62,4 @@ PerformanceDetailPage.defaultProps = {
   isFeedbackMode: true,
 };
 
-export default PerformanceDetailPage;
+export default withAdminOrUser(PerformanceDetailPage);

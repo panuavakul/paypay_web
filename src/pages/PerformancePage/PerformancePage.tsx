@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import AddFab from "../../components/AddFab";
 import PageSelector from "../../components/PageSelector";
 import AdminPageType from "../../enums/AdminPageType";
+import { withAdmin } from "../../components/hocs/withAdmin";
 
 interface ComponentProps {}
 
@@ -37,4 +38,4 @@ const PerformancePage: React.SFC<ComponentProps> = props => {
   );
 };
 
-export default PerformancePage;
+export default withAdmin(PerformancePage);

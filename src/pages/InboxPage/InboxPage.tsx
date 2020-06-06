@@ -5,6 +5,7 @@ import { AppState } from "../../redux/store";
 import { getAssignedPerformancesAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { withUser } from "../../components/hocs/withUser";
 
 interface ComponentProps {}
 
@@ -41,4 +42,4 @@ const InboxPage: React.SFC<ComponentProps> = props => {
   );
 };
 
-export default InboxPage;
+export default withUser(InboxPage);

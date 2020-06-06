@@ -95,7 +95,6 @@ const ppperformanceSlice = createSlice({
     );
 
     builder.addCase(removeOnePerformanceWithIdAction, (state, action) => {
-      const result = removeId<PPPerformance>(state, action.payload);
       return removeId<PPPerformance>(state, action.payload);
     });
   },

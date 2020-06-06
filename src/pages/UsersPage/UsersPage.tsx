@@ -7,6 +7,7 @@ import UserCard from "../../components/UserCard";
 import AddFab from "../../components/AddFab";
 import PageSelector from "../../components/PageSelector";
 import AdminPageType from "../../enums/AdminPageType";
+import { withAdmin } from "../../components/hocs/withAdmin";
 
 interface ComponentProps {}
 
@@ -36,4 +37,4 @@ const UserPage: React.SFC<ComponentProps> = props => {
   );
 };
 
-export default UserPage;
+export default withAdmin(UserPage);

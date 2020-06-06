@@ -22,7 +22,7 @@ export interface CommonState {
 const initialState: CommonState = {
   isLoading: false,
   isAdmin: undefined,
-  userId: "1",
+  userId: undefined,
 };
 
 // Slices
