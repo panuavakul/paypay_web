@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -41,6 +41,12 @@ const GiveFeedbackArea: React.SFC<ComponentProps> = props => {
   const state = useSelector(selector);
   const { performanceId } = props;
   const history = useHistory();
+
+  useEffect(() => {
+    dispatch(resetGiveFeedbackAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <React.Fragment>
       <Box paddingTop={2}>

@@ -19,9 +19,11 @@ export const loadingMiddleware: Middleware = store => next => action => {
   const prefix = splitted[0];
   if (loadingActions.includes(prefix)) {
     const isSuccess: boolean = action.payload;
-    if (!isSuccess) {
+    console.log(isSuccess);
+    if (isSuccess === false) {
       // If payload is not true then there is a validation error
       // Do not show loading or snackbar
+      store.dispatch(finishLoadingAction());
       return next(action);
     }
     // the thunk action should have length > 1
@@ -31,6 +33,7 @@ export const loadingMiddleware: Middleware = store => next => action => {
         store.dispatch(startLoadingAction());
         break;
       case "rejected":
+        console.log("here");
         store.dispatch(finishLoadingAction());
         store.dispatch(
           showSnackBarAction({

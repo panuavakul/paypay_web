@@ -42,6 +42,7 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
   const history = useHistory();
 
   useEffect(() => {
+    dispatch(resetPerformancePage());
     dispatch(getUsersAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -120,10 +121,11 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   onClick={async () => {
                     const result: any = await dispatch(postPerformance());
                     const type: string = result.type;
+                    const success: boolean = result.payload;
 
                     // length is always > 1
                     const thunkType = type.split("/")[1];
-                    if (thunkType === "fulfilled") {
+                    if (thunkType === "fulfilled" && success) {
                       dispatch(resetPerformancePage());
                       history.push("/performances");
                     }

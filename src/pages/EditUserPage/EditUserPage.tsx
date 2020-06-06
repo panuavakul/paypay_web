@@ -38,6 +38,7 @@ const EditUserPage: React.SFC<ComponentProps> = props => {
   const history = useHistory();
 
   useEffect(() => {
+    dispatch(resetEditUserPage());
     dispatch(getUsersAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
