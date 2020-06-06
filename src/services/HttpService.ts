@@ -5,11 +5,6 @@ class HttpService {
 
   static async get(path?: string): Promise<any> {
     const requestUrl = `${this.url}/${path}`;
-
-    console.log("requestUr", requestUrl);
-    console.log("url", this.url);
-    console.log("path", path);
-
     const response = await axios.get(requestUrl);
     return response.data;
   }

@@ -17,29 +17,27 @@ const adminTypeSelector = (state: AppState): boolean => {
   return isAdmin ?? false;
 };
 
-const eitherTypeSelector = (state: AppState): boolean => {
-  return userTypeSelector(state) || adminTypeSelector(state);
-};
-
 /// This component act as a fake auth checking HOC
 /// in reality, this component will check if there is auth
 /// and check type and render accordingly
 export const withAuth = (type: AuthType) => <T extends object>(
   Component: React.ComponentType<T>
 ) => (props: T) => {
+  const isAdmin = useSelector(adminTypeSelector);
+  const isUser = useSelector(userTypeSelector);
   let hasAuth = false;
   let label = "";
   switch (type) {
     case AuthType.Admin:
-      hasAuth = useSelector(adminTypeSelector);
+      hasAuth = isAdmin;
       label = "as admin";
       break;
     case AuthType.User:
-      hasAuth = useSelector(userTypeSelector);
-      label = "as user";
+      hasAuth = isUser;
+      label = "as employee";
       break;
     case AuthType.Either:
-      hasAuth = useSelector(eitherTypeSelector);
+      hasAuth = isAdmin || isUser;
       break;
     default:
       break;
@@ -47,7 +45,10 @@ export const withAuth = (type: AuthType) => <T extends object>(
   return (
     <React.Fragment>
       {hasAuth ? (
-        <Component {...(props as T)} />
+        <Component
+          signinedas={isAdmin ? AuthType.Admin : AuthType.User}
+          {...(props as T)}
+        />
       ) : (
         <Grid container direction={"column"}>
           <Grid item>

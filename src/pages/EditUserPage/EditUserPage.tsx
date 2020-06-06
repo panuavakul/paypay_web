@@ -72,8 +72,8 @@ const EditUserPage: React.SFC<ComponentProps> = props => {
                   label={"Last"}
                   placeholder={"Smith"}
                   value={state.lastName}
-                  error={state.firstNameErrorMsg.length > 0}
-                  helperText={state.firstNameErrorMsg}
+                  error={state.lastNameErrorMsg.length > 0}
+                  helperText={state.lastNameErrorMsg}
                   onChange={event => {
                     const value = event.target.value;
                     dispatch(setLastNameAction(value));

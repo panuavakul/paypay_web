@@ -22,7 +22,7 @@ export const postUserAction = createAsyncThunk<boolean, void>(
 
     const lastNameValidationResult = Validator.validateLastName(lastName);
     if (lastNameValidationResult) {
-      thunkApi.dispatch(setLastNameErrorMsgAction(lastName));
+      thunkApi.dispatch(setLastNameErrorMsgAction(lastNameValidationResult));
       hasError = true;
     } else {
       thunkApi.dispatch(setLastNameErrorMsgAction(""));

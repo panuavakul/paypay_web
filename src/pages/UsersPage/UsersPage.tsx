@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserCard from "../../components/UserCard";
@@ -16,6 +16,7 @@ const idsSelector = (state: AppState) => state.user.allIds;
 const UserPage: React.SFC<ComponentProps> = props => {
   const userIds = useSelector(idsSelector);
   const dispatch = useDispatch();
+  const hasUser = userIds.length > 0;
 
   useEffect(() => {
     dispatch(getUsersAction());
@@ -25,13 +26,19 @@ const UserPage: React.SFC<ComponentProps> = props => {
   return (
     <React.Fragment>
       <PageSelector mode={AdminPageType.Users} />
-      <Grid container direction={"column"} spacing={2}>
-        {userIds.map((id, index) => (
-          <Grid item key={index}>
-            <UserCard userId={id} />
-          </Grid>
-        ))}
-      </Grid>
+      {hasUser ? (
+        <Grid container direction={"column"} spacing={2}>
+          {userIds.map((id, index) => (
+            <Grid item key={index}>
+              <UserCard userId={id} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Typography color="textSecondary" variant={"h5"}>
+          No user yet
+        </Typography>
+      )}
       <AddFab to={"/users/new"} />
     </React.Fragment>
   );

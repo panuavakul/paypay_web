@@ -8,12 +8,13 @@ import { AppState } from "../../redux/store";
 import FeedbackListArea from "./FeedbackListArea";
 import GiveFeedbackArea from "./GiveFeedbackArea";
 import { withAdminOrUser } from "../../components/hocs/withAdminOrUser";
+import AuthType from "../../enums/AuthType";
 
 interface RouteParams {
   id: string;
 }
 interface ComponentProps {
-  isFeedbackMode?: boolean;
+  signinedas: AuthType;
 }
 
 interface State {
@@ -38,6 +39,7 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
 
   const dispatch = useDispatch();
   const state = useSelector(idsSelector(params.id));
+  const isFeedbackMode = props.signinedas === AuthType.User;
 
   useEffect(() => {
     dispatch(getPerformanceAction(params.id));
@@ -50,16 +52,10 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
         Performance
       </Typography>
       <PerformanceCard performanceId={params.id} />
-      {!props.isFeedbackMode && (
-        <FeedbackListArea feedbackIds={state.feedbackIds} />
-      )}
-      {props.isFeedbackMode && <GiveFeedbackArea performanceId={params.id} />}
+      {!isFeedbackMode && <FeedbackListArea feedbackIds={state.feedbackIds} />}
+      {isFeedbackMode && <GiveFeedbackArea performanceId={params.id} />}
     </React.Fragment>
   );
-};
-
-PerformanceDetailPage.defaultProps = {
-  isFeedbackMode: true,
 };
 
 export default withAdminOrUser(PerformanceDetailPage);
