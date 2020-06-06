@@ -17,11 +17,11 @@ export interface UserPostBody {
 export class UserHelper {
   static fromJson(data: any): User {
     const user: User = {
-      id: data.id,
+      id: `${data.id}`,
       firstName: data.firstName,
       lastName: data.lastName,
-      performanceIds: data.performanceIds,
-      feedbackIds: data.feedbackIds,
+      performanceIds: data.performanceIds?.map(String) ?? [],
+      feedbackIds: data.feedbackIds?.map(String) ?? [],
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     };

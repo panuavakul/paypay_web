@@ -45,9 +45,7 @@ const snackbarSlice = createSlice({
       hideSnackBarAction,
       (state, action): SnackbarState => {
         return {
-          isOpen: false,
-          severity: SnackBarSeverity.Success,
-          message: "",
+          ...initialState,
         };
       }
     );

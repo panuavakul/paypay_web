@@ -20,12 +20,12 @@ export interface PPPerformancePostBody {
 export class PPPerformanceHelper {
   static fromJson(data: any): PPPerformance {
     const ppperformance: PPPerformance = {
-      id: data.id,
+      id: `${data.id}`,
       date: data.date,
-      userId: data.userId,
-      feedbackIds: data.feedbackIds,
+      userId: `${data.userId}`,
+      feedbackIds: data.feedbackIds?.map(String) ?? [],
       achievement: data.achievement,
-      reviewerIds: data.reviewerIds,
+      reviewerIds: data.reviewerIds?.map(String) ?? [],
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     };
