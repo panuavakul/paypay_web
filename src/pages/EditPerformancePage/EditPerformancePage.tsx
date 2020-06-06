@@ -61,6 +61,8 @@ const NewPerformancePage: React.SFC<ComponentProps> = props => {
                   label={"Employee"}
                   values={state.employeeId}
                   errorMsg={state.employeeErrorMsg}
+                  // Should be using `useCallback` for this
+                  // But development app should be ok
                   onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
                     const id = event.target.value as string;
                     dispatch(setEmployeeIdAction(id));
