@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import PPPerformance from "../../models/PPPerformance";
 import PPPerformanceService from "../../services/PPPerformanceService";
-import { mergeAllUserAction } from "./userSlice";
+import { mergeAllUserAction, resetUserStateAction } from "./userSlice";
 import { mergeAllFeedbackAction } from "./feedbackSlice";
 import { mergeAll } from "../reducer_helpers/mergeAll";
 import { mergeOne } from "../reducer_helpers/mergeOne";
@@ -62,6 +62,10 @@ export const removeOnePerformanceWithIdAction = createAction<string>(
   "performance_remove_one_with_id"
 );
 
+export const resetPerformanceStateAction = createAction<void>(
+  "performance_reset"
+);
+
 // State
 export interface PPPerformanceState {
   byId: { [key: string]: PPPerformance };
@@ -79,24 +83,40 @@ const ppperformanceSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getPerformancesAction.fulfilled, (state, action) => {
-      return mergeAll<PPPerformance>(state, action.payload);
-    });
-
-    builder.addCase(getPerformanceAction.fulfilled, (state, action) => {
-      return mergeOne<PPPerformance>(state, action.payload);
-    });
+    builder.addCase(
+      resetUserStateAction,
+      (state, action): PPPerformanceState => {
+        return { ...initialState };
+      }
+    );
 
     builder.addCase(
-      getAssignedPerformancesAction.fulfilled,
-      (state, action) => {
+      getPerformancesAction.fulfilled,
+      (state, action): PPPerformanceState => {
         return mergeAll<PPPerformance>(state, action.payload);
       }
     );
 
-    builder.addCase(removeOnePerformanceWithIdAction, (state, action) => {
-      return removeId<PPPerformance>(state, action.payload);
-    });
+    builder.addCase(
+      getPerformanceAction.fulfilled,
+      (state, action): PPPerformanceState => {
+        return mergeOne<PPPerformance>(state, action.payload);
+      }
+    );
+
+    builder.addCase(
+      getAssignedPerformancesAction.fulfilled,
+      (state, action): PPPerformanceState => {
+        return mergeAll<PPPerformance>(state, action.payload);
+      }
+    );
+
+    builder.addCase(
+      removeOnePerformanceWithIdAction,
+      (state, action): PPPerformanceState => {
+        return removeId<PPPerformance>(state, action.payload);
+      }
+    );
   },
 });
 

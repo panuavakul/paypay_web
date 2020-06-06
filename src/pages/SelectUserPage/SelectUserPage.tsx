@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersAction } from "../../redux/slices/userSlice";
+import {
+  getUsersAction,
+  resetUserStateAction,
+} from "../../redux/slices/userSlice";
 import UserSelector from "../../components/UserSelector";
 import { AppState } from "../../redux/store";
 import {
@@ -11,6 +14,7 @@ import {
 } from "../../redux/slices/commonSlice";
 import { useHistory } from "react-router-dom";
 import { setSelectedUserAction } from "../../redux/slices/selectUserPageSlice";
+import { resetFeedbackStateAction } from "../../redux/slices/feedbackSlice";
 
 interface State {
   userIds: string[];
@@ -35,8 +39,11 @@ const SelectUserPage: React.SFC = props => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(getUsersAction());
+    dispatch(resetUserStateAction());
+    dispatch(resetFeedbackStateAction());
+    dispatch(resetUserStateAction());
     dispatch(resetCommonState());
+    dispatch(getUsersAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

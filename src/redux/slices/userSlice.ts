@@ -11,6 +11,7 @@ export const getUsersAction = createAsyncThunk("users_get_users", async () => {
 });
 
 // Actions
+export const resetUserStateAction = createAction<void>("data_user_reset");
 export const mergeOneUserAction = createAction<User>("data_user_merge_one");
 export const mergeAllUserAction = createAction<User[]>("data_user_merge_all");
 
@@ -32,6 +33,13 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: builder => {
+    builder.addCase(
+      resetUserStateAction,
+      (state, action): UserState => {
+        return { ...initialState };
+      }
+    );
+
     builder.addCase(
       getUsersAction.fulfilled,
       (state, action): UserState => {
