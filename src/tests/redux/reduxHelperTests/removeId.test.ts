@@ -1,7 +1,4 @@
-import PPPerformance, {
-  PPPerformanceHelper,
-} from "../../../models/PPPerformance";
-import { removeId } from "../../../redux/reducer_helpers/removeId";
+import { removeId } from "../../../redux/reduxHelpers/removeId";
 import BaseData from "../../../models/BaseData";
 import User from "../../../models/User";
 
@@ -10,7 +7,7 @@ interface State<T extends BaseData> {
   allIds: string[];
 }
 
-describe("ppperformanceReducer", () => {
+describe("removedId", () => {
   const initialState: State<User> = {
     byId: {},
     allIds: [],
@@ -34,8 +31,8 @@ describe("ppperformanceReducer", () => {
       },
       "3": {
         id: "3",
-        firstName: "John",
-        lastName: "Smith",
+        firstName: "Papa",
+        lastName: "John",
         performanceIds: [],
         feedbackIds: [],
       },
@@ -59,8 +56,8 @@ describe("ppperformanceReducer", () => {
     });
     expect(result.byId["3"]).toEqual({
       id: "3",
-      firstName: "John",
-      lastName: "Smith",
+      firstName: "Papa",
+      lastName: "John",
       performanceIds: [],
       feedbackIds: [],
     });

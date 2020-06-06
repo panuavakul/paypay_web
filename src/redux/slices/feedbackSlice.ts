@@ -1,7 +1,7 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import Feedback from "../../models/Feedback";
-import { mergeOne } from "../reducer_helpers/mergeOne";
-import { mergeAll } from "../reducer_helpers/mergeAll";
+import { mergeOne } from "../reduxHelpers/mergeOne";
+import { mergeAll } from "../reduxHelpers/mergeAll";
 
 // Actions
 export const resetFeedbackStateAction = createAction<void>(

@@ -3,10 +3,10 @@ import PPPerformance from "../../models/PPPerformance";
 import PPPerformanceService from "../../services/PPPerformanceService";
 import { mergeAllUserAction, resetUserStateAction } from "./userSlice";
 import { mergeAllFeedbackAction } from "./feedbackSlice";
-import { mergeAll } from "../reducer_helpers/mergeAll";
-import { mergeOne } from "../reducer_helpers/mergeOne";
+import { mergeAll } from "../reduxHelpers/mergeAll";
+import { mergeOne } from "../reduxHelpers/mergeOne";
 import { AppState } from "../store";
-import { removeId } from "../reducer_helpers/removeId";
+import { removeId } from "../reduxHelpers/removeId";
 
 // Actions
 export const getPerformancesAction = createAsyncThunk(

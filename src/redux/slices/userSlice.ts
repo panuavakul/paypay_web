@@ -1,8 +1,8 @@
 import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import UserService from "../../services/UserService";
 import User from "../../models/User";
-import { mergeOne } from "../reducer_helpers/mergeOne";
-import { mergeAll } from "../reducer_helpers/mergeAll";
+import { mergeOne } from "../reduxHelpers/mergeOne";
+import { mergeAll } from "../reduxHelpers/mergeAll";
 
 // Actions
 export const getUsersAction = createAsyncThunk("users_get_users", async () => {
