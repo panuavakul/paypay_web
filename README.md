@@ -1,6 +1,16 @@
+# README
+
+This is the frontend (web) of the Paypay Interview Coding challenge. This project is implmented with React/Redux in TypeScript
+
+# Prerequisite
+
+- Docker & Docker Compose
+- Port 3000 is opened
+
+Please run the paypay-back (backend) before starting the web
+
 # How to run
 
 ```
-npm install
-npm run start
+docker-compose up
 ```
