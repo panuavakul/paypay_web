@@ -1,8 +1,4 @@
-import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import UserService from "../../services/UserService";
-import User from "../../models/User";
-import { mergeOne } from "../reducer_helpers/mergeOne";
-import { mergeAll } from "../reducer_helpers/mergeAll";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 
 // Actions
 export const setFeedbackPointsAction = createAction<number>(

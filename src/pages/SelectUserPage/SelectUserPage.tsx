@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../../redux/slices/userSlice";

@@ -2,15 +2,9 @@ import React, { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import PerformanceCard from "../../components/PerformanceCard";
 import { AppState } from "../../redux/store";
-import {
-  getPerformancesAction,
-  getAssignedPerformancesAction,
-} from "../../redux/slices/ppperformanceSlice";
+import { getAssignedPerformancesAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import AddFab from "../../components/AddFab";
-import PageSelector from "../../components/PageSelector";
-import AdminPageType from "../../enums/AdminPageType";
 
 interface ComponentProps {}
 

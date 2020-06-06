@@ -11,7 +11,6 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import FeedbackCard from "../../components/FeedbackCard";
 import Rating from "@material-ui/lab/Rating";
 import { AppState } from "../../redux/store";
 import {
@@ -49,6 +48,7 @@ const GiveFeedbackArea: React.SFC<ComponentProps> = props => {
             <Grid container direction={"column"}>
               <Grid item>
                 <Rating
+                  name={"feedback-rating"}
                   size={"large"}
                   value={state.point}
                   onChange={(_, newValue) => {

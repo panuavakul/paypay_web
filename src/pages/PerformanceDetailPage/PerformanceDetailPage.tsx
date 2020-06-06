@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { Grid, Typography, Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import PerformanceCard from "../../components/PerformanceCard";
 import { getPerformanceAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
-import FeedbackCard from "../../components/FeedbackCard";
 import { AppState } from "../../redux/store";
 import FeedbackListArea from "./FeedbackListArea";
 import GiveFeedbackArea from "./GiveFeedbackArea";
@@ -50,8 +49,10 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
         Performance
       </Typography>
       <PerformanceCard performanceId={params.id} />
-      <GiveFeedbackArea performanceId={params.id} />
-      <FeedbackListArea feedbackIds={state.feedbackIds} />
+      {!props.isFeedbackMode && (
+        <FeedbackListArea feedbackIds={state.feedbackIds} />
+      )}
+      {props.isFeedbackMode && <GiveFeedbackArea performanceId={params.id} />}
     </React.Fragment>
   );
 };

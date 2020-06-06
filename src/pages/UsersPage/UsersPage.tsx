@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { AppState } from "../../redux/store";
 import { getUsersAction } from "../../redux/slices/userSlice";
 import UserCard from "../../components/UserCard";
