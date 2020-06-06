@@ -6,11 +6,15 @@ import { getPerformanceAction } from "../../redux/slices/ppperformanceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FeedbackCard from "../../components/FeedbackCard";
 import { AppState } from "../../redux/store";
+import FeedbackListArea from "./FeedbackListArea";
+import GiveFeedbackArea from "./GiveFeedbackArea";
 
 interface RouteParams {
   id: string;
 }
-interface ComponentProps {}
+interface ComponentProps {
+  isFeedbackMode?: boolean;
+}
 
 interface State {
   feedbackIds: string[];
@@ -46,28 +50,14 @@ const PerformanceDetailPage: React.SFC<ComponentProps> = props => {
         Performance
       </Typography>
       <PerformanceCard performanceId={params.id} />
-      <Box paddingTop={2}>
-        <Typography color="textPrimary" variant={"h4"} gutterBottom>
-          Feedbacks
-        </Typography>
-      </Box>
-      <Grid container direction={"column"} spacing={2}>
-        {state.feedbackIds.length > 0 ? (
-          state.feedbackIds.map((id, index) => (
-            <Grid item key={index}>
-              <FeedbackCard feedbackId={id} />
-            </Grid>
-          ))
-        ) : (
-          <Box width={1} textAlign={"center"}>
-            <Typography color="textPrimary" variant={"body1"}>
-              No feedback yet...
-            </Typography>
-          </Box>
-        )}
-      </Grid>
+      <GiveFeedbackArea performanceId={params.id} />
+      <FeedbackListArea feedbackIds={state.feedbackIds} />
     </React.Fragment>
   );
+};
+
+PerformanceDetailPage.defaultProps = {
+  isFeedbackMode: true,
 };
 
 export default PerformanceDetailPage;

@@ -39,6 +39,13 @@ function App() {
               path={"/performances/:id"}
               component={PerformanceDetailPage}
             />
+            <Route
+              exact
+              path={"/feedback/:id"}
+              render={props => (
+                <PerformanceDetailPage {...props} isFeedbackMode />
+              )}
+            />
             <Route exact path={"/users"} component={UserPage} />
             <Route exact path={"/users/new"} component={EditUserPage} />
             <Route exact path={"/inbox"} component={InboxPage} />
